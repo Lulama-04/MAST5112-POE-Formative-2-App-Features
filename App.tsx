@@ -126,7 +126,7 @@ function HomeScreen(props:NativeStackScreenProps<RootStackParamList, "HomeScreen
       <View style={styles.headerRow}>
         <View style={styles.headerText}>
           <Text style={styles.headerTitle}>Christoffel</Text>
-          <Text style={styles.headerSubtitle}>Multi- Cuisine | Delivered At Your Door Step | Choose At Your Finger Tips</Text>
+          <Text style={styles.headerSubtitle}>Multi- Cuisine | Delivered At Your Door Step | Choose At Your Finger Tips | Unfiltered Dishes: 6</Text>
         </View>
          <Image source={{ uri: "https://i.pinimg.com/736x/a5/02/ab/a502ab8bc852dece2fd8353f5097d880.jpg" }} style={styles.logoSmall} />
         </View>
