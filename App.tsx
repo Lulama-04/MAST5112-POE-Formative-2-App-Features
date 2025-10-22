@@ -470,7 +470,7 @@ const styles = StyleSheet.create({
   addText: { color: "#fff8e1", fontSize: 18, fontWeight: "bold",},
   removeButton: { 
     flex: 0,
-    backgroundColor: "#b71c1cff", 
+    backgroundColor: "#492323ff", 
     paddingVertical: 16, 
     borderRadius: 30, 
     alignItems: "center", 
@@ -480,7 +480,7 @@ const styles = StyleSheet.create({
   },
   removeText: { color: "#fff8e1", fontSize: 18,  fontWeight: "bold" },
  
-  formContainer: { backgroundColor: "#050505ff", padding: 20 },
+  formContainer: { backgroundColor: "#050505ff", padding: 20, flex: 1 },
   formHeader: { fontSize: 28, color: "#cacccaff", fontWeight: "bold", textAlign: "center", marginBottom: 30 },
   input: {
     backgroundColor: "#464646ff",
