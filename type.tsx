@@ -13,6 +13,10 @@ export type CourseMenu = {
  export type RootStackParamList = {
     WelcomeScreen: undefined;
     HomeScreen: undefined;
+    RemoveScreen: {
+        item: CourseMenu[];
+        setItem: React.Dispatch<React.SetStateAction<CourseMenu[]>>;
+    };
     ManageScreen:{
         item: CourseMenu[];
         setItem: React.Dispatch<React.SetStateAction<CourseMenu[]>>;

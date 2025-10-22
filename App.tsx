@@ -106,8 +106,6 @@ function WelcomeScreen({ navigation }: NativeStackScreenProps<RootStackParamList
   );
 }
 
-
-
 function HomeScreen(props:NativeStackScreenProps<RootStackParamList, "HomeScreen">) {
   const [items, setItems] = useState<CourseMenu[]>(predefinedItems);
   const [orderedItems, setOrderedItems] = useState<CourseMenu[]>([]);
@@ -157,6 +155,13 @@ function HomeScreen(props:NativeStackScreenProps<RootStackParamList, "HomeScreen
         onPress={() => props.navigation.navigate("ManageScreen", { item: items, setItem: setItems })}
       >
         <Text style={styles.addText}>Add Item</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.removeButton}
+        onPress={() => props.navigation.navigate("ManageScreen", { item: items, setItem: setItems })}
+      >
+        <Text style={styles.removeText}>Remove Items</Text>
       </TouchableOpacity>
     </SafeAreaView>
   )
@@ -230,7 +235,7 @@ function ManageMenuScreen(props: NativeStackScreenProps<RootStackParamList, 'Man
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView contentContainerStyle={styles.formContainer}>
-          <Text style={styles.formHeader}>Add a New Café Item</Text>
+          <Text style={styles.formHeader}>Add a New Dish Item</Text>
 
           <TextInput
             style={styles.input}
@@ -245,6 +250,13 @@ function ManageMenuScreen(props: NativeStackScreenProps<RootStackParamList, 'Man
             value={description}
             onChangeText={setDescription}
           />
+          
+          <TextInput
+            style={styles.input}
+            placeholder="Cuisine Type"
+            value={cuisine}
+            onChangeText={setCuisine}
+          />
 
           {/* Category Picker */}
           <View style={styles.pickerWrapper}>
@@ -254,17 +266,17 @@ function ManageMenuScreen(props: NativeStackScreenProps<RootStackParamList, 'Man
                 selectedValue={category}
                 onValueChange={value => setCategory(value)}
                 mode="dropdown"
-                dropdownIconColor="#198f0aff"
+                dropdownIconColor="#080808ff"
                 style={styles.pickerStyle}
                 itemStyle={{ height: 50 }}
               >
                 <Picker.Item
                   label="Select a Category"
                   value=""
-                  color="#b50404ff"
+                  color="#216331ff"
                 />
-                <Picker.Item label="Beverage" value="Beverage" />
-                <Picker.Item label="Pastry" value="Pastry" />
+                <Picker.Item label="Starters" value="Starters" />
+                <Picker.Item label="Main" value="Main" />
                 <Picker.Item label="Dessert" value="Dessert" />
               </Picker>
             </View>
@@ -312,6 +324,62 @@ function ManageMenuScreen(props: NativeStackScreenProps<RootStackParamList, 'Man
   );
 };
 
+function RemoveMenuScreen(props: NativeStackScreenProps<RootStackParamList, 'RemoveScreen'>) {
+   const [items, setItems] = useState<CourseMenu[]>(predefinedItems);
+
+   const removeItem = (index: number) => {
+    Alert.alert("Remove Item", "Are you sure you want to remove this item?", [
+      { text: "Cancel", style: "cancel" },
+      { text: "Yes", onPress: () => {
+    ]);
+  };
+
+  return (<SafeAreaView style={styles.container}>
+      <View style={styles.headerRow}>
+        <View style={styles.headerText}>
+          <Text style={styles.headerTitle}>Christoffel</Text>
+          <Text style={styles.headerSubtitle}>Multi- Cuisine | Delivered At Your Door Step | Choose At Your Finger Tips</Text>
+        </View>
+         <Image source={{ uri: "https://i.pinimg.com/736x/a5/02/ab/a502ab8bc852dece2fd8353f5097d880.jpg" }} style={styles.logoSmall} />
+        </View>
+      <FlatList
+        data={items}
+        keyExtractor={(_, i)=> i.toString()}
+        numColumns={2} // Display items in 2 columns
+        columnWrapperStyle={styles.row} // Style for the row wrapper
+        renderItem={({ item, index}) => (
+          <View style={styles.card}>
+            <Image source={{ uri: item.image || "" }} style={styles.cardImage}/>
+            <View style={styles.cardContent}>
+                <Text style={styles.cardTitle}>{item.dishName}</Text>
+                <Text style={styles.cardDesc}>{item.description}</Text>
+                <Text style={styles.cardMeta}>{item.category} | {item.cuisine} | {item.intensity} | R{item.price} </Text>
+                <TouchableOpacity style={styles.removeButton} onPress={() => removeItem(index)}>
+                  <Text style={styles.orderText}>Remove</Text>
+                </TouchableOpacity>
+            </View>
+          </View>
+        )}
+      />
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => props.navigation.navigate("ManageScreen", { item: items, setItem: setItems })}
+      >
+        <Text style={styles.addText}>Remove Item</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.removeButton}
+        onPress={() => props.navigation.navigate("RemoveScreen", { item: items, setItem: setItems })}
+      >
+        <Text style={styles.removeText}>Remove Items</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
+  )
+}
+
+
+
 export default function App() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   return (
@@ -325,21 +393,30 @@ export default function App() {
        <Stack.Screen
        name="HomeScreen"
        component={HomeScreen}
-       options={{ title: 'Home' }} 
+       options={{ title: 'Home', headerStyle: { backgroundColor: '#000000ff' }, headerTintColor: '#fff' }} 
        />
        <Stack.Screen
          name="ManageScreen"
          component={ManageMenuScreen}
          options={{
          title: "Add Menu Item",
-         headerStyle: { backgroundColor: "#4b2e2b" },
+         headerStyle: { backgroundColor: "#040404ff" },
          headerTintColor: "#fff"
          }}
+        />
+        <Stack.Screen
+          name="RemoveScreen"
+          component={RemoveMenuScreen}
+          options={{
+          title: "Remove Menu Items",
+          headerStyle: { backgroundColor: "#060606ff" },
+          headerTintColor: "#fff"
+          }}
         />
      </Stack.Navigator>
     </NavigationContainer>
   )
-}
+} 
 
 const styles = StyleSheet.create({
   welcomeContainer: { flex: 1, backgroundColor: "#3e2723" },
@@ -396,26 +473,29 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     alignItems: "center",
     marginTop: 10,
-    marginBottom: 20,
+    marginBottom:10,
     elevation: 4,
   },
   addText: { color: "#fff8e1", fontSize: 18, fontWeight: "bold",},
   removeButton: { 
     flex: 0,
     backgroundColor: "#b71c1cff", 
-    padding: 8, 
+    paddingVertical: 16, 
     borderRadius: 30, 
     alignItems: "center", 
     marginTop: 10,
+    marginBottom: 20,
+    elevation: 4,
   },
-  removeText: { color: "#fff", fontSize: 18,  fontWeight: "bold" },
+  removeText: { color: "#fff8e1", fontSize: 18,  fontWeight: "bold" },
  
-  formContainer: { backgroundColor: "#f5f5f5", padding: 20 },
-  formHeader: { fontSize: 24, color: "#4b2e2b", fontWeight: "bold", textAlign: "center", marginBottom: 20 },
+  formContainer: { backgroundColor: "#050505ff", padding: 20 },
+  formHeader: { fontSize: 24, color: "#cacccaff", fontWeight: "bold", textAlign: "center", marginBottom: 20 },
   input: {
-    backgroundColor: "#fff",
+    backgroundColor: "#464646ff",
+    color: "#bdbab9ff",
     borderRadius: 10,
-    borderColor: "#8d6e63",
+    borderColor: "#070707ff",
     borderWidth: 1,
     paddingHorizontal: 12,
     height: 50,
@@ -425,12 +505,12 @@ const styles = StyleSheet.create({
  
   // ✅ PICKER FIXED STYLES
   pickerWrapper: { marginVertical: 10 },
-  label: { fontSize: 15, fontWeight: "600", color: "#4b2e2b", marginBottom: 6, marginLeft: 4 },
+  label: { fontSize: 15, fontWeight: "600", color: "#e9e6e6ff", marginBottom: 6, marginLeft: 4 },
   pickerContainer: {
     borderWidth: 1,
-    borderColor: "#8d6e63",
+    borderColor: "#0b0b0bff",
     borderRadius: 10,
-    backgroundColor: "#fff",
+    backgroundColor: "#464646ff",
     height: 50,
     justifyContent: "center",
     overflow: "hidden",
@@ -438,7 +518,7 @@ const styles = StyleSheet.create({
   pickerStyle: {
     height: 50,
     width: "100%",
-    color: "#4b2e2b",
+    color: "#bdbab9ff",
     fontSize: 15,
     paddingHorizontal: 10,
     marginTop: Platform.OS === "ios" ? -6 : -2,
@@ -453,10 +533,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 5,
   },
-  saveButton: { backgroundColor: "#4b2e2b", padding: 15, borderRadius: 10, marginTop: 15, alignItems: "center" },
+  saveButton: { backgroundColor: "#2e622eff", padding: 15, borderRadius: 10, marginTop: 15, alignItems: "center" },
   saveButtonText: { color: "#fff", fontWeight: "bold", fontSize: 16 },
   cancelButton: { alignItems: "center", marginTop: 10 },
-  cancelButtonText: { color: "#5d4037", fontWeight: "bold" },
+  cancelButtonText: { color: "#5d0303ff", fontWeight: "bold" },
 });
 
 
