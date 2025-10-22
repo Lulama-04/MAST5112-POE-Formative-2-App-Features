@@ -159,7 +159,7 @@ function HomeScreen(props:NativeStackScreenProps<RootStackParamList, "HomeScreen
 
       <TouchableOpacity
         style={styles.removeButton}
-        onPress={() => props.navigation.navigate("ManageScreen", { item: items, setItem: setItems })}
+        onPress={() => props.navigation.navigate("RemoveScreen", { item: items, setItem: setItems })}
       >
         <Text style={styles.removeText}>Remove Items</Text>
       </TouchableOpacity>
@@ -330,7 +330,7 @@ function RemoveMenuScreen(props: NativeStackScreenProps<RootStackParamList, 'Rem
    const removeItem = (index: number) => {
     Alert.alert("Remove Item", "Are you sure you want to remove this item?", [
       { text: "Cancel", style: "cancel" },
-      { text: "Yes", onPress: () => {
+      { text: "Yes", onPress: () => setItems(items.filter((_, i) => i !== index)) },
     ]);
   };
 
@@ -365,20 +365,11 @@ function RemoveMenuScreen(props: NativeStackScreenProps<RootStackParamList, 'Rem
         style={styles.addButton}
         onPress={() => props.navigation.navigate("ManageScreen", { item: items, setItem: setItems })}
       >
-        <Text style={styles.addText}>Remove Item</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.removeButton}
-        onPress={() => props.navigation.navigate("RemoveScreen", { item: items, setItem: setItems })}
-      >
-        <Text style={styles.removeText}>Remove Items</Text>
+        <Text style={styles.addText}>Add Item</Text>
       </TouchableOpacity>
     </SafeAreaView>
   )
 }
-
-
 
 export default function App() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -490,14 +481,14 @@ const styles = StyleSheet.create({
   removeText: { color: "#fff8e1", fontSize: 18,  fontWeight: "bold" },
  
   formContainer: { backgroundColor: "#050505ff", padding: 20 },
-  formHeader: { fontSize: 24, color: "#cacccaff", fontWeight: "bold", textAlign: "center", marginBottom: 20 },
+  formHeader: { fontSize: 28, color: "#cacccaff", fontWeight: "bold", textAlign: "center", marginBottom: 30 },
   input: {
     backgroundColor: "#464646ff",
     color: "#bdbab9ff",
-    borderRadius: 10,
+    borderRadius: 12,
     borderColor: "#070707ff",
     borderWidth: 1,
-    paddingHorizontal: 12,
+    paddingHorizontal: 16,
     height: 50,
     justifyContent: "center",
     marginVertical: 8,
