@@ -483,7 +483,7 @@ const styles = StyleSheet.create({
   formContainer: { backgroundColor: "#050505ff", padding: 20, flex: 1 },
   formHeader: { fontSize: 28, color: "#cacccaff", fontWeight: "bold", textAlign: "center", marginBottom: 30 },
   input: {
-    backgroundColor: "#464646ff",
+    backgroundColor: "#9a9898ff",
     color: "#bdbab9ff",
     borderRadius: 12,
     borderColor: "#070707ff",
