@@ -84,3 +84,129 @@ const predefinedItems: CourseMenu[] = [
   },
 ];
 
+/**
+ * Displays the welcome screen with a hero image, title, and navigation button.
+ * @param navigation - Navigation prop for navigating between screens.
+ */
+function WelcomeScreen({ navigation }: NativeStackScreenProps<RootStackParamList, "WelcomeScreen">) {
+  return(
+    <SafeAreaView style={styles.welcomeContainer}>
+      <Image
+        source={{ uri: "https://i.pinimg.com/736x/86/b1/02/86b1020432ad373cbccc8a5aefcf542b.jpg" }}
+        style={styles.heroImage}
+      />
+      <View style={styles.overlay}>
+        <Text style={styles.welcomeTitle}>Welcome To Christoffel</Text>
+        <Text style={styles.welcomeText}>Find the cuisine for you--on the Go!</Text>
+        <TouchableOpacity style={styles.startButton} onPress={()=> navigation.navigate("HomeScreen")}>
+          <Text style={styles.startText}>Discover Menu</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  welcomeContainer: { flex: 1, backgroundColor: "#3e2723" },
+  heroImage: { width: "100%", height: "100%", position: "absolute" },
+  overlay: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.45)",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 30,
+  },
+  welcomeTitle: { color: "#fff", fontSize: 54, fontWeight: "700", fontFamily: "Inter", textAlign: "center", marginBottom: 10, padding: 10, borderRadius: 15,},
+  welcomeText: { color: "#fbe9e7", fontSize: 16, textAlign: "center", marginBottom: 50 , marginTop: 200},
+  startButton: { backgroundColor: "#70dc84ff", paddingVertical: 14, paddingHorizontal: 40, borderRadius: 30,},
+  startText: { color: "#3e2723", fontWeight: "bold", fontSize: 18 },
+ 
+  container: { flex: 1, backgroundColor: "#efebe9", padding: 15 },
+  mainTitle: { fontSize: 28, fontWeight: "800", color: "#4b2e2b", textAlign: "center" },
+  subtitle: { textAlign: "center", color: "#795548", marginBottom: 15, fontSize: 15 },
+ 
+  card: {
+    backgroundColor: "#fff",
+    borderRadius: 18,
+    marginVertical: 10,
+    overflow: "hidden",
+    shadowColor: "#000",
+    shadowOpacity: 0.15,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+  cardImage: { width: "100%", height: 220 },
+  cardContent: { padding: 15 },
+  cardTitle: { fontSize: 20, fontWeight: "700", color: "#4b2e2b" },
+  cardDesc: { color: "#5d4037", fontSize: 14, marginVertical: 5 },
+  cardMeta: { color: "#8d6e63", fontSize: 13 },
+  removeButton: {
+    backgroundColor: "#562f0357",
+    padding: 10,
+    borderRadius: 8,
+    alignItems: "center",
+    marginTop: 10,
+  },
+  removeText: { color: "#fff", fontWeight: "bold" },
+  addButton: {
+    backgroundColor: "#4b2e2b",
+    borderRadius: 30,
+    paddingVertical: 16,
+    alignItems: "center",
+    marginTop: 10,
+    marginBottom: 20,
+    elevation: 4,
+  },
+  addText: { color: "#fff8e1", fontSize: 18, fontWeight: "bold" },
+ 
+  formContainer: { backgroundColor: "#f5f5f5", padding: 20 },
+  formHeader: { fontSize: 24, color: "#4b2e2b", fontWeight: "bold", textAlign: "center", marginBottom: 20 },
+  input: {
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    borderColor: "#8d6e63",
+    borderWidth: 1,
+    paddingHorizontal: 12,
+    height: 50,
+    justifyContent: "center",
+    marginVertical: 8,
+  },
+ 
+  // ✅ PICKER FIXED STYLES
+  pickerWrapper: { marginVertical: 10 },
+  label: { fontSize: 15, fontWeight: "600", color: "#4b2e2b", marginBottom: 6, marginLeft: 4 },
+  pickerContainer: {
+    borderWidth: 1,
+    borderColor: "#8d6e63",
+    borderRadius: 10,
+    backgroundColor: "#fff",
+    height: 50,
+    justifyContent: "center",
+    overflow: "hidden",
+  },
+  pickerStyle: {
+    height: 50,
+    width: "100%",
+    color: "#4b2e2b",
+    fontSize: 15,
+    paddingHorizontal: 10,
+    marginTop: Platform.OS === "ios" ? -6 : -2,
+  },
+ 
+  imagePreview: {
+    width: "100%",
+    height: 220,
+    borderRadius: 15,
+    marginTop: 15,
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+  },
+  saveButton: { backgroundColor: "#4b2e2b", padding: 15, borderRadius: 10, marginTop: 15, alignItems: "center" },
+  saveButtonText: { color: "#fff", fontWeight: "bold", fontSize: 16 },
+  cancelButton: { alignItems: "center", marginTop: 10 },
+  cancelButtonText: { color: "#5d4037", fontWeight: "bold" },
+});
+
+
+
